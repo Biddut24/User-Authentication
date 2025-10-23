@@ -21,8 +21,6 @@ const googleProvider = new GoogleAuthProvider();
 const githubprovider = new GithubAuthProvider();
 const facbookprovider = new FacebookAuthProvider();
 
-
-
 const UserContext = ({ children }) => {
   const [user, setUser] = useState({});
   //create user
@@ -35,19 +33,19 @@ const UserContext = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-// create user by google
-const createUserByGoogle = ()=>{
-return signInWithPopup(auth,googleProvider)
-}
+  // create user by google
+  const createUserByGoogle = () => {
+    return signInWithPopup(auth, googleProvider);
+  };
 
-// create user by github
-const createUserByGithub = ()=>{
-return signInWithPopup(auth,githubprovider)
-}
-// create user by Facbook
-const createUserByFacbook = ()=>{
-return signInWithPopup(auth,facbookprovider)
-}
+  // create user by github
+  const createUserByGithub = () => {
+    return signInWithPopup(auth, githubprovider);
+  };
+  // create user by Facbook
+  const createUserByFacbook = () => {
+    return signInWithPopup(auth, facbookprovider);
+  };
 
   // updeate user
   const updateUser = (name) => {
@@ -58,13 +56,13 @@ return signInWithPopup(auth,facbookprovider)
 
   //verify user
   const sendVerification = () => {
-   return sendEmailVerification(auth.currentUser)
+    return sendEmailVerification(auth.currentUser);
   };
 
   //forgetPassword
-  const forgetPassword = (email)=>{
-   return sendPasswordResetEmail(auth, email)
-  }
+  const forgetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
 
   //user tracking
   useEffect(() => {

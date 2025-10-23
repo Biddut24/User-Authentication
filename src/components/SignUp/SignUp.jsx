@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "./../../context/UserContext";
 
 const SignUp = () => {
-  const { createUser, updateUser, sendVerification,createUserByGoogle,createUserByGithub,createUserByFacbook} = useContext(AuthContext);
+  const {
+    createUser,
+    updateUser,
+    sendVerification,
+    createUserByGoogle,
+    createUserByGithub,
+    createUserByFacbook,
+  } = useContext(AuthContext);
   const [passwordError, setPasswordError] = useState("");
   const handleSignup = (event) => {
     event.preventDefault();
@@ -52,7 +59,7 @@ const SignUp = () => {
     form.reset();
   };
 
-/// google authentication
+  /// google authentication
 
   const authByGoogle = () => {
     createUserByGoogle()
@@ -66,7 +73,7 @@ const SignUp = () => {
       });
   };
 
-/// github authentication
+  /// github authentication
   const authByGithub = () => {
     createUserByGithub()
       .then((result) => {
@@ -78,7 +85,6 @@ const SignUp = () => {
         console.log(message);
       });
   };
-
 
   ///user facbook authentication
 
@@ -143,8 +149,12 @@ const SignUp = () => {
           <button onClick={authByGoogle} className="btn btn-neutral mt-2">
             Continue With Google
           </button>
-          <button onClick={authByGithub} className="btn btn-neutral mt-2">Continue With Github</button>
-          <button onClick={authByFacbook} className="btn btn-neutral mt-2">Continue With Facbook</button>
+          <button onClick={authByGithub} className="btn btn-neutral mt-2">
+            Continue With Github
+          </button>
+          <button onClick={authByFacbook} className="btn btn-neutral mt-2">
+            Continue With Facbook
+          </button>
         </div>
       </div>
     </div>
