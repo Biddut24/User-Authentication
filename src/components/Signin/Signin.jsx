@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/UserContext";
 
 
 const Signin = () => {
-  const { userLogin, forgetPassword, createUserByGoogle,createUserByGithub } =
+  const { userLogin, forgetPassword, createUserByGoogle,createUserByGithub,createUserByFacbook } =
     useContext(AuthContext);
 
   const handleSignin = (event) => {
@@ -74,8 +74,23 @@ const Signin = () => {
       });
   };
 
+
+///user facbook authentication
+
+  const authByFacbook = () => {
+    createUserByFacbook()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const message = error.message;
+        console.log(message);
+      });
+  };
+
   return (
-    <div className="flex justify-center items-center mt-20 mb-10">
+    <div className="flex justify-center items-center mt-20 mb-15">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <form onSubmit={handleSignin} className="fieldset">
@@ -117,6 +132,7 @@ const Signin = () => {
             Continue With Google
           </button>
           <button onClick={authByGithub} className="btn btn-neutral mt-2">Continue With Github</button>
+          <button onClick={authByFacbook} className="btn btn-neutral mt-2">Continue With Facbook</button>
         </div>
       </div>
     </div>

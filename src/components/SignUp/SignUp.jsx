@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "./../../context/UserContext";
 
 const SignUp = () => {
-  const { createUser, updateUser, sendVerification,createUserByGoogle,createUserByGithub} = useContext(AuthContext);
+  const { createUser, updateUser, sendVerification,createUserByGoogle,createUserByGithub,createUserByFacbook} = useContext(AuthContext);
   const [passwordError, setPasswordError] = useState("");
   const handleSignup = (event) => {
     event.preventDefault();
@@ -52,6 +52,7 @@ const SignUp = () => {
     form.reset();
   };
 
+/// google authentication
 
   const authByGoogle = () => {
     createUserByGoogle()
@@ -65,7 +66,7 @@ const SignUp = () => {
       });
   };
 
-
+/// github authentication
   const authByGithub = () => {
     createUserByGithub()
       .then((result) => {
@@ -78,8 +79,23 @@ const SignUp = () => {
       });
   };
 
+
+  ///user facbook authentication
+
+  const authByFacbook = () => {
+    createUserByFacbook()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const message = error.message;
+        console.log(message);
+      });
+  };
+
   return (
-    <div className="flex justify-center items-center mt-20 mb-10">
+    <div className="flex justify-center items-center mt-20 mb-15">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <form onSubmit={handleSignup} className="fieldset">
@@ -128,6 +144,7 @@ const SignUp = () => {
             Continue With Google
           </button>
           <button onClick={authByGithub} className="btn btn-neutral mt-2">Continue With Github</button>
+          <button onClick={authByFacbook} className="btn btn-neutral mt-2">Continue With Facbook</button>
         </div>
       </div>
     </div>

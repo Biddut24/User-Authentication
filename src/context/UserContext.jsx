@@ -1,5 +1,6 @@
 import {
   createUserWithEmailAndPassword,
+  FacebookAuthProvider,
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -18,6 +19,7 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const githubprovider = new GithubAuthProvider();
+const facbookprovider = new FacebookAuthProvider();
 
 
 
@@ -41,6 +43,10 @@ return signInWithPopup(auth,googleProvider)
 // create user by github
 const createUserByGithub = ()=>{
 return signInWithPopup(auth,githubprovider)
+}
+// create user by Facbook
+const createUserByFacbook = ()=>{
+return signInWithPopup(auth,facbookprovider)
 }
 
   // updeate user
@@ -83,6 +89,7 @@ return signInWithPopup(auth,githubprovider)
     forgetPassword,
     createUserByGoogle,
     createUserByGithub,
+    createUserByFacbook,
     user,
     logout,
   };
