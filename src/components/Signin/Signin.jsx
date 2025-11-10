@@ -11,6 +11,8 @@ const Signin = () => {
     createUserByFacbook,
   } = useContext(AuthContext);
 
+  const [email, setEmail] = useState("");
+
   const handleSignin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -20,105 +22,88 @@ const Signin = () => {
     userLogin(email, password)
       .then((result) => {
         const user = result.user;
+        console.log("User logged in:", user);
       })
       .catch((error) => {
-        const message = error.message;
-        console.log(message);
+        console.log("Login error:", error.message);
       });
 
     form.reset();
   };
 
-  const getEmail = (event) => {
-    const email = event.target.value;
+  const handleForgetPassword = () => {
     if (!email) {
-      alert("plase enter your email address");
+      alert("Please enter your email address first");
       return;
     }
-    handleForgetPassword(email);
-  };
 
-  const handleForgetPassword = (email) => {
     forgetPassword(email)
       .then(() => {
-        alert("Check your email to reset your password");
+        alert("Check your email to reset your password"); // ✅ alert আসবে
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  /// google authentication
-
+  /// Google authentication
   const authByGoogle = () => {
     createUserByGoogle()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const message = error.message;
-        console.log(message);
-      });
+      .then((result) => console.log("Google user:", result.user))
+      .catch((error) => console.log(error.message));
   };
 
-  ///user github authentication
-
+  /// Github authentication
   const authByGithub = () => {
     createUserByGithub()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const message = error.message;
-        console.log(message);
-      });
+      .then((result) => console.log("Github user:", result.user))
+      .catch((error) => console.log(error.message));
   };
 
-  ///user facbook authentication
-
+  /// Facebook authentication
   const authByFacbook = () => {
     createUserByFacbook()
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const message = error.message;
-        console.log(message);
-      });
+      .then((result) => console.log("Facebook user:", result.user))
+      .catch((error) => console.log(error.message));
   };
 
   return (
     <div className="flex justify-center items-center mt-20 mb-15">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
         <div className="card-body">
           <form onSubmit={handleSignin} className="fieldset">
             <label className="label">Email</label>
             <input
               type="email"
               name="email"
-              onBlur={getEmail}
               className="input"
               placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)} // 🔹 email ধরে রাখবে
+              required
             />
+
             <label className="label">Password</label>
             <input
               type="password"
               name="password"
               className="input"
               placeholder="Password"
+              required
             />
+
+            {/* Forget Password link */}
             <div>
-              <a onClick={handleForgetPassword} className="link link-hover">
+              <a
+                onClick={handleForgetPassword}
+                className="link link-hover text-blue-600 cursor-pointer"
+              >
                 Forget Password
               </a>
             </div>
 
             <div>
               <Link to="/sign-up" className="link link-hover">
-                New To website? Please Register
+                New to website? Please Register
               </Link>
             </div>
 
@@ -136,7 +121,7 @@ const Signin = () => {
             Continue With Github
           </button>
           <button onClick={authByFacbook} className="btn btn-neutral mt-2">
-            Continue With Facbook
+            Continue With Facebook
           </button>
         </div>
       </div>
